@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
+import { NavLinks } from "@/components/NavLinks";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -23,12 +24,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 Every coaching call, reviewed like a supervisor would.
               </span>
             </Link>
-            <nav className="flex gap-1 text-sm">
-              <Link href="/pitch" className="rounded-md px-3 py-1.5 text-slate-700 hover:bg-slate-100">Pitch</Link>
-              <Link href="/" className="rounded-md px-3 py-1.5 text-slate-700 hover:bg-slate-100">Analyze a call</Link>
-              <Link href="/queue" className="rounded-md px-3 py-1.5 text-slate-700 hover:bg-slate-100">Supervisor queue</Link>
-              <Link href="/validation" className="rounded-md px-3 py-1.5 text-slate-700 hover:bg-slate-100">Validation</Link>
-            </nav>
+            <NavLinks />
           </div>
         </header>
         <main className="mx-auto max-w-7xl px-4 py-6">{children}</main>
