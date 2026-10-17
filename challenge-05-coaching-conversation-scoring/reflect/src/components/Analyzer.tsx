@@ -192,6 +192,14 @@ export function Analyzer({ demos }: { demos: DemoCall[] }) {
         if (listening) stopLive();
         setMode(m);
         if (m === "demo" && demoId) pickDemo(demoId);
+        // A live call starts on a blank screen, not the last demo's transcript.
+        if (m === "live") {
+          setLines([]);
+          setAnalysis(null);
+          setLabels(null);
+          setError(null);
+          setInterim("");
+        }
       }}
       className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm ${
         mode === m ? "bg-teal-700 text-white" : "text-slate-700 hover:bg-slate-100"
