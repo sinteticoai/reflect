@@ -71,7 +71,7 @@ export default function Pitch() {
         </ul>
         <p className="mt-10 text-xl text-slate-500">Live or recorded. Spoken or texted. English or&nbsp;Spanish.</p>
         <Link
-          href="/"
+          href="/analyze"
           className="mt-10 inline-block w-fit rounded-xl bg-teal-700 px-8 py-4 text-2xl font-medium text-white hover:bg-teal-800"
         >
           Analyze a call

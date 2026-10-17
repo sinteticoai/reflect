@@ -18,7 +18,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}>
         <header className="border-b border-slate-200 bg-white">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
-            <Link href="/" className="flex items-baseline gap-3">
+            <Link href="/pitch" className="flex items-baseline gap-3">
               <span className="text-xl font-semibold tracking-tight text-teal-800">Reflect</span>
               <span className="hidden text-sm text-slate-500 sm:inline">
                 Every coaching call, reviewed like a supervisor would.
