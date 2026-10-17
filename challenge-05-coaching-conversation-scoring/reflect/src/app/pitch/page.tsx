@@ -4,7 +4,7 @@ import { Proof } from "@/components/Proof";
 
 const TEAL = { bg: "bg-white border border-slate-200", fg: "text-teal-700" };
 const STEPS = [
-  { Icon: Tag, verb: "Tag", rest: "every line, like an MI\u00a0expert", tone: TEAL },
+  { Icon: Tag, verb: "Tag", rest: "every line, like a motivational interviewing\u00a0expert", tone: TEAL },
   { Icon: Gauge, verb: "Score", rest: "the coach, like a\u00a0supervisor", tone: TEAL },
   { Icon: AlertTriangle, verb: "Flag", rest: "what needs a person\u00a0today", tone: { bg: "bg-white border border-slate-200", fg: "text-rose-600" } },
 ];
