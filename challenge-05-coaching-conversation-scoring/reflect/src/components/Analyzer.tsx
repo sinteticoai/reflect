@@ -210,8 +210,8 @@ export function Analyzer({ demos }: { demos: DemoCall[] }) {
       <div className="rounded-xl border border-slate-200 bg-white p-4">
         <div className="flex flex-wrap items-center gap-2">
           {tab("demo", "Demo calls", PlayCircle)}
-          {tab("paste", "Paste a transcript", ClipboardPaste)}
           {tab("live", "Live call", Mic)}
+          {tab("paste", "Paste a transcript", ClipboardPaste)}
           {loading && (
             <span className="ml-auto flex items-center gap-1.5 text-sm text-slate-500">
               <Loader2 size={15} className="animate-spin" /> Reviewing the call
