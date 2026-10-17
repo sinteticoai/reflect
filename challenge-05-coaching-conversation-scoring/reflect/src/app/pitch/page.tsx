@@ -62,7 +62,7 @@ export default function Pitch() {
         </p>
       </Slide>
 
-      <Slide id="s2" next="s3">
+      <Slide id="s2">
         <h2 className="text-5xl font-semibold tracking-tight text-slate-900 sm:text-6xl"><span className="text-teal-700">Reflect</span> listens and&nbsp;tells you:</h2>
         <ul className="mt-10 space-y-6">
           {STEPS.map(({ Icon, verb, rest, tone }) => (
@@ -77,17 +77,13 @@ export default function Pitch() {
           ))}
         </ul>
         <p className="mt-10 text-xl text-slate-500">Live or recorded. Spoken or texted. English or&nbsp;Spanish.</p>
-      </Slide>
-
-      <Slide id="s3">
-        <h2 className="text-5xl font-semibold tracking-tight text-slate-900 sm:text-6xl">Try it.</h2>
         <Link
           href="/"
           className="mt-10 inline-block w-fit rounded-xl bg-teal-700 px-8 py-4 text-2xl font-medium text-white hover:bg-teal-800"
         >
           Analyze a call
         </Link>
-        <p className="mt-10 text-base text-slate-500">Built by Christian G.&nbsp;Balbontin.</p>
+        <p className="mt-8 text-base text-slate-500">Built by Christian G.&nbsp;Balbontin.</p>
       </Slide>
     </div>
   );
