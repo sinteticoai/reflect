@@ -23,6 +23,9 @@ export default function Pitch() {
         <p className="mt-6 max-w-2xl text-2xl text-slate-600">
           Programs record thousands of calls. Supervisors hear a&nbsp;handful.
         </p>
+        <p className="mt-2 max-w-2xl text-2xl font-medium text-slate-900">
+          <span className="text-teal-700">Reflect</span> reviews every one, and flags the few that need a&nbsp;supervisor.
+        </p>
         <div className="mt-12">
           <Proof />
         </div>
