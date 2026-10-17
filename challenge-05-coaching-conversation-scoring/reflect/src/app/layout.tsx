@@ -16,7 +16,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}>
-        <header className="border-b border-slate-200 bg-white">
+        <header className="relative border-b border-slate-200 bg-white">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
             <Link href="/pitch" className="flex items-baseline gap-3">
               <span className="text-xl font-semibold tracking-tight text-teal-800">Reflect</span>
