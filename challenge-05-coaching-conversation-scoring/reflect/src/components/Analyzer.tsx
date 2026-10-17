@@ -211,7 +211,7 @@ export function Analyzer({ demos }: { demos: DemoCall[] }) {
         <div className="flex flex-wrap items-center gap-2">
           {tab("demo", "Demo calls", PlayCircle)}
           {tab("live", "Live call", Mic)}
-          {tab("paste", "Paste a transcript", ClipboardPaste)}
+          {tab("paste", "Paste transcript", ClipboardPaste)}
           {loading && (
             <span className="ml-auto flex items-center gap-1.5 text-sm text-slate-500">
               <Loader2 size={15} className="animate-spin" /> Reviewing the call
@@ -226,7 +226,7 @@ export function Analyzer({ demos }: { demos: DemoCall[] }) {
                 <select
                   value={demoId}
                   onChange={(e) => pickDemo(e.target.value)}
-                  className="min-w-0 max-w-full flex-1 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm"
+                  className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm sm:w-auto sm:min-w-0 sm:flex-1"
                 >
                   {demos.map((d) => (
                     <option key={d.id} value={d.id}>
@@ -235,7 +235,7 @@ export function Analyzer({ demos }: { demos: DemoCall[] }) {
                     </option>
                   ))}
                 </select>
-                {current?.source && <span className="text-xs text-slate-500">Source: {current.source}</span>}
+                {current?.source && <span className="w-full text-xs text-slate-500 sm:w-auto">Source: {current.source}</span>}
               </div>
             ) : (
               <p className="text-sm text-slate-500">Demo calls are being prepared. Try pasting a transcript meanwhile.</p>
