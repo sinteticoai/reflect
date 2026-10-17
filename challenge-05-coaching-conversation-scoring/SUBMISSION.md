@@ -2,9 +2,9 @@
 
 Track: Healthcare
 Project Name: Reflect: an AI supervisor for every health-coaching call
-Demo URL: <vercel url>
+Demo URL: https://reflect-seven-theta.vercel.app
 GitHub Repository: https://github.com/sinteticoai/reflect
-Pitch Deck URL: <vercel url>/pitch
+Pitch Deck URL: https://reflect-seven-theta.vercel.app/pitch
 Tech Stack: Next.js 15, TypeScript, Tailwind CSS 4, Anthropic Claude (Haiku 5.5, Sonnet 5.5), Web Speech API, Vercel
 Screenshots: home (safety demo call), validation page
 
