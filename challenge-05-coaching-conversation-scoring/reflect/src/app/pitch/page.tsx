@@ -1,5 +1,13 @@
 import Link from "next/link";
+import { AlertTriangle, Gauge, Tag } from "lucide-react";
 import { Proof } from "@/components/Proof";
+
+const TEAL = { bg: "bg-teal-100", fg: "text-teal-700" };
+const STEPS = [
+  { Icon: Tag, verb: "Tag", rest: "every line, like an MI\u00a0expert", tone: TEAL },
+  { Icon: Gauge, verb: "Score", rest: "the coach, like a\u00a0supervisor", tone: TEAL },
+  { Icon: AlertTriangle, verb: "Flag", rest: "what needs a person\u00a0today", tone: { bg: "bg-rose-100", fg: "text-rose-600" } },
+];
 
 export const metadata = { title: "Reflect | Pitch" };
 
@@ -44,10 +52,17 @@ export default function Pitch() {
 
       <Slide>
         <h2 className="text-5xl font-semibold tracking-tight text-slate-900 sm:text-6xl"><span className="text-teal-700">Reflect</span> listens and&nbsp;tells you:</h2>
-        <ul className="mt-10 space-y-5 text-3xl text-slate-700">
-          <li><span className="font-semibold text-teal-700">Tag</span> every line, like an MI&nbsp;expert</li>
-          <li><span className="font-semibold text-teal-700">Score</span> the coach, like a&nbsp;supervisor</li>
-          <li><span className="font-semibold text-rose-600">Flag</span> what needs a person&nbsp;today</li>
+        <ul className="mt-10 space-y-6">
+          {STEPS.map(({ Icon, verb, rest, tone }) => (
+            <li key={verb} className="flex items-center gap-5">
+              <span className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${tone.bg}`}>
+                <Icon size={28} className={tone.fg} />
+              </span>
+              <span className="text-3xl text-slate-700">
+                <span className={`font-semibold ${tone.fg}`}>{verb}</span> {rest}
+              </span>
+            </li>
+          ))}
         </ul>
         <p className="mt-10 text-xl text-slate-500">Live or recorded. Spoken or texted. English or&nbsp;Spanish.</p>
       </Slide>
