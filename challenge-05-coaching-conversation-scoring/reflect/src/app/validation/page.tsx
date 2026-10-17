@@ -72,7 +72,7 @@ export default function Validation() {
       <Section
         kicker="Expert agreement"
         stat={pct(a.counsellor_move.accuracy_pct)}
-        claim="matches the 10-expert majority on real MI sessions"
+        claim="matches the 10-expert majority on real motivational interviewing (MI) sessions"
         sub={`Experts agree with each other ${a.human_expert_agreement_pct}%. AnnoMI, ${a.counsellor_move.n} expert-coded lines.`}
       >
         <Table
