@@ -35,7 +35,7 @@ export default function About() {
       </section>
       <p className="mt-12 text-sm text-slate-500">
         Data: AnnoMI (Wu et al., 2022), UIC coaching texts (Gupta et al., 2020), Sylvester Crane Lab synthetic&nbsp;program.
-        eMerge AI Hackathon, Miami, October 17, 2026. Healthcare track, Challenge&nbsp;5. Built by&nbsp;Sintetico.
+        eMerge AI Hackathon, Miami, October 17, 2026. Healthcare track, Challenge&nbsp;5. Built by Christian G.&nbsp;Balbontin.
       </p>
     </article>
   );

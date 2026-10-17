@@ -87,7 +87,7 @@ export default function Pitch() {
         >
           Analyze a call
         </Link>
-        <p className="mt-10 text-base text-slate-500">Built by&nbsp;Sintetico.</p>
+        <p className="mt-10 text-base text-slate-500">Built by Christian G.&nbsp;Balbontin.</p>
       </Slide>
     </div>
   );
