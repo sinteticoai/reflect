@@ -199,7 +199,7 @@ export function Analyzer({ demos }: { demos: DemoCall[] }) {
         mode === m ? "bg-teal-700 text-white" : "text-slate-700 hover:bg-slate-100"
       }`}
     >
-      <Icon size={15} />
+      <Icon size={15} className="hidden sm:block" />
       <span className="sm:hidden">{short}</span>
       <span className="hidden sm:inline">{label}</span>
     </button>
@@ -209,11 +209,11 @@ export function Analyzer({ demos }: { demos: DemoCall[] }) {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-xl border border-slate-200 bg-white p-4">
+      <div className="rounded-xl border border-slate-200 bg-white p-3 sm:p-4">
         <div className="flex items-center gap-1 sm:gap-2">
-          {tab("demo", "Demo calls", "Demo", PlayCircle)}
-          {tab("live", "Live call", "Live", Mic)}
-          {tab("paste", "Paste transcript", "Paste", ClipboardPaste)}
+          {tab("demo", "Demo calls", "Demo call", PlayCircle)}
+          {tab("live", "Live call", "Live call", Mic)}
+          {tab("paste", "Paste transcript", "Transcript", ClipboardPaste)}
           {loading && (
             <span className="ml-auto flex items-center gap-1.5 text-sm text-slate-500">
               <Loader2 size={15} className="animate-spin" /> Reviewing the call
