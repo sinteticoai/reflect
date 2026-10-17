@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AlertTriangle, Gauge, Tag } from "lucide-react";
+import { AlertTriangle, ChevronDown, Gauge, Tag } from "lucide-react";
 import { Proof } from "@/components/Proof";
 
 const TEAL = { bg: "bg-white border border-slate-200", fg: "text-teal-700" };
@@ -11,10 +11,22 @@ const STEPS = [
 
 export const metadata = { title: "Reflect | Pitch" };
 
-function Slide({ children }: { children: React.ReactNode }) {
+function Slide({ id, next, children }: { id: string; next?: string; children: React.ReactNode }) {
   return (
-    <section className="flex min-h-[calc(100vh-8rem)] snap-start flex-col justify-center border-b border-slate-200 py-12">
+    <section
+      id={id}
+      className="relative flex min-h-[calc(100vh-8rem)] snap-start flex-col justify-center border-b border-slate-200 py-12"
+    >
       {children}
+      {next && (
+        <a
+          href={`#${next}`}
+          aria-label="Next slide"
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 animate-bounce rounded-full border border-slate-200 bg-white p-2 text-slate-500 hover:text-teal-700"
+        >
+          <ChevronDown size={24} />
+        </a>
+      )}
     </section>
   );
 }
@@ -22,8 +34,8 @@ function Slide({ children }: { children: React.ReactNode }) {
 
 export default function Pitch() {
   return (
-    <div className="h-[calc(100vh-5rem)] snap-y snap-mandatory overflow-y-auto">
-      <Slide>
+    <div className="h-[calc(100vh-5rem)] snap-y snap-mandatory overflow-y-auto scroll-smooth">
+      <Slide id="s1" next="s2">
         <p className="text-sm font-medium uppercase tracking-widest text-teal-700">Sylvester Challenge 5</p>
         <h1 className="mt-4 max-w-4xl text-5xl font-semibold tracking-tight text-slate-900 sm:text-7xl">
           Every coaching call, reviewed.
@@ -50,7 +62,7 @@ export default function Pitch() {
         </p>
       </Slide>
 
-      <Slide>
+      <Slide id="s2" next="s3">
         <h2 className="text-5xl font-semibold tracking-tight text-slate-900 sm:text-6xl"><span className="text-teal-700">Reflect</span> listens and&nbsp;tells you:</h2>
         <ul className="mt-10 space-y-6">
           {STEPS.map(({ Icon, verb, rest, tone }) => (
@@ -67,7 +79,7 @@ export default function Pitch() {
         <p className="mt-10 text-xl text-slate-500">Live or recorded. Spoken or texted. English or&nbsp;Spanish.</p>
       </Slide>
 
-      <Slide>
+      <Slide id="s3">
         <h2 className="text-5xl font-semibold tracking-tight text-slate-900 sm:text-6xl">Try it.</h2>
         <Link
           href="/"
