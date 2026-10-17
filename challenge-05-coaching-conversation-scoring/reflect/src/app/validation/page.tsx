@@ -118,7 +118,7 @@ export default function ValidationPage() {
   const claims = Array.isArray(data.headline) ? (data.headline.filter((h) => typeof h === "string") as string[]) : [];
   const sections = Array.isArray(data.sections) ? (data.sections.filter(isObj) as Obj[]) : null;
   const other = Object.entries(data).filter(
-    ([k]) => !["status", "headline", "sections", "title", "summary", "generated_at", "model"].includes(k),
+    ([k]) => !["status", "headline", "sections", "title", "summary", "generated_at", "model", "models"].includes(k),
   );
 
   return (

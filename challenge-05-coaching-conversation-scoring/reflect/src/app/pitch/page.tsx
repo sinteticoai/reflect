@@ -64,7 +64,7 @@ export default function Pitch() {
         >
           Review a call
         </Link>
-        <p className="mt-10 text-base text-slate-500">Built by Sintetico with&nbsp;Claude.</p>
+        <p className="mt-10 text-base text-slate-500">Built by&nbsp;Sintetico.</p>
       </Slide>
     </div>
   );

@@ -2,7 +2,7 @@ export const metadata = { title: "About | Reflect" };
 
 const BLOCKS = [
   ["Why", "Coaching programs record thousands of calls. Supervisors review a handful. Reflect reviews every one."],
-  ["How", "Claude tags each line with its motivational interviewing move, scores the coach on the supervisor's rubric, and flags what needs a person today."],
+  ["How", "Reflect tags each line with its motivational interviewing move, scores the coach on the supervisor's rubric, and flags what needs a person today."],
   ["Data", "AnnoMI (Wu et al., 2022), UIC coaching texts (Gupta et al., 2020), Sylvester Crane Lab synthetic program."],
 ];
 
@@ -19,7 +19,7 @@ export default function About() {
         ))}
       </dl>
       <p className="mt-12 text-sm text-slate-500">
-        eMerge AI Hackathon, Miami, October 17, 2026. Healthcare track, Challenge&nbsp;5. Built by Sintetico with&nbsp;Claude.
+        eMerge AI Hackathon, Miami, October 17, 2026. Healthcare track, Challenge&nbsp;5. Built by&nbsp;Sintetico.
       </p>
     </article>
   );
