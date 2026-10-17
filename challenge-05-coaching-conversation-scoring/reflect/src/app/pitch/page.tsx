@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { AlertTriangle, ChevronDown, Gauge, Tag } from "lucide-react";
+import { AlertTriangle, Gauge, Tag } from "lucide-react";
+import { NextSlide } from "@/components/NextSlide";
 import { Proof } from "@/components/Proof";
 
 const TEAL = { bg: "bg-white border border-slate-200", fg: "text-teal-700" };
@@ -11,22 +12,13 @@ const STEPS = [
 
 export const metadata = { title: "Reflect | Pitch" };
 
-function Slide({ id, next, children }: { id: string; next?: string; children: React.ReactNode }) {
+function Slide({ id, children }: { id: string; children: React.ReactNode }) {
   return (
     <section
       id={id}
       className="relative flex min-h-[calc(100vh-8rem)] snap-start flex-col justify-center border-b border-slate-200 py-12"
     >
       {children}
-      {next && (
-        <a
-          href={`#${next}`}
-          aria-label="Next slide"
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 animate-bounce rounded-full border border-slate-200 bg-white p-2 text-slate-500 hover:text-teal-700"
-        >
-          <ChevronDown size={24} />
-        </a>
-      )}
     </section>
   );
 }
@@ -34,8 +26,9 @@ function Slide({ id, next, children }: { id: string; next?: string; children: Re
 
 export default function Pitch() {
   return (
-    <div className="h-[calc(100vh-5rem)] snap-y snap-mandatory overflow-y-auto scroll-smooth">
-      <Slide id="s1" next="s2">
+    <div id="pitch-scroll" className="h-[calc(100vh-5rem)] snap-y snap-mandatory overflow-y-auto scroll-smooth">
+      <NextSlide containerId="pitch-scroll" />
+      <Slide id="s1">
         <p className="text-sm font-medium uppercase tracking-widest text-teal-700">Sylvester Challenge 5</p>
         <h1 className="mt-4 max-w-4xl text-5xl font-semibold tracking-tight text-slate-900 sm:text-7xl">
           Every coaching call, reviewed.
