@@ -73,7 +73,7 @@ export default function Pitch() {
           href="/"
           className="mt-10 inline-block w-fit rounded-xl bg-teal-700 px-8 py-4 text-2xl font-medium text-white hover:bg-teal-800"
         >
-          Review a call
+          Analyze a call
         </Link>
         <p className="mt-10 text-base text-slate-500">Built by&nbsp;Sintetico.</p>
       </Slide>
