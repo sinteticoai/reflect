@@ -147,6 +147,10 @@ export default function Validation() {
         Known limits: simple vs complex reflections ({pct(a.reflection_type.accuracy_pct)}) and the &ldquo;checked feelings&rdquo;
         checklist item ({pct(sup.checklist.checked_feelings.reflect_vs_A_pct)} vs Supervisor A) need more&nbsp;work.
       </p>
+      <p className="pb-10 text-sm text-slate-500">
+        Data: AnnoMI (Wu et al., ICASSP 2022), UIC health coaching texts (Gupta et al., SIGDIAL 2020), Sylvester Crane Lab
+        synthetic coaching program. Built by Christian G.&nbsp;Balbontin.
+      </p>
     </div>
   );
 }

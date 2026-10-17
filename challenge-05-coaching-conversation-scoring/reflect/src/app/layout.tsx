@@ -28,7 +28,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               <Link href="/" className="rounded-md px-3 py-1.5 text-slate-700 hover:bg-slate-100">Analyze a call</Link>
               <Link href="/queue" className="rounded-md px-3 py-1.5 text-slate-700 hover:bg-slate-100">Supervisor queue</Link>
               <Link href="/validation" className="rounded-md px-3 py-1.5 text-slate-700 hover:bg-slate-100">Validation</Link>
-              <Link href="/about" className="rounded-md px-3 py-1.5 text-slate-700 hover:bg-slate-100">About</Link>
             </nav>
           </div>
         </header>
