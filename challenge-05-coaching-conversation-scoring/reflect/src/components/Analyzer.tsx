@@ -179,7 +179,7 @@ export function Analyzer({ demos }: { demos: DemoCall[] }) {
     setTimeout(() => setHighlight(null), 2000);
   }
 
-  const tab = (m: Mode, label: string, Icon: typeof Mic) => (
+  const tab = (m: Mode, label: string, short: string, Icon: typeof Mic) => (
     <button
       onClick={() => {
         if (listening) stopLive();
@@ -195,11 +195,13 @@ export function Analyzer({ demos }: { demos: DemoCall[] }) {
         }
         if (m === "paste") setPaste("");
       }}
-      className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm ${
+      className={`flex items-center gap-1.5 whitespace-nowrap rounded-md px-2.5 py-1.5 text-sm sm:px-3 ${
         mode === m ? "bg-teal-700 text-white" : "text-slate-700 hover:bg-slate-100"
       }`}
     >
-      <Icon size={15} /> {label}
+      <Icon size={15} />
+      <span className="sm:hidden">{short}</span>
+      <span className="hidden sm:inline">{label}</span>
     </button>
   );
 
@@ -208,10 +210,10 @@ export function Analyzer({ demos }: { demos: DemoCall[] }) {
   return (
     <div className="space-y-4">
       <div className="rounded-xl border border-slate-200 bg-white p-4">
-        <div className="flex flex-wrap items-center gap-2">
-          {tab("demo", "Demo calls", PlayCircle)}
-          {tab("live", "Live call", Mic)}
-          {tab("paste", "Paste transcript", ClipboardPaste)}
+        <div className="flex items-center gap-1 sm:gap-2">
+          {tab("demo", "Demo calls", "Demo", PlayCircle)}
+          {tab("live", "Live call", "Live", Mic)}
+          {tab("paste", "Paste transcript", "Paste", ClipboardPaste)}
           {loading && (
             <span className="ml-auto flex items-center gap-1.5 text-sm text-slate-500">
               <Loader2 size={15} className="animate-spin" /> Reviewing the call
