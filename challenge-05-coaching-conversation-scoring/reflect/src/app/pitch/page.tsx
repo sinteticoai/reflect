@@ -23,7 +23,7 @@ export default function Pitch() {
         <dl className="mt-8 max-w-2xl space-y-4">
           <div>
             <dt className="text-sm font-medium uppercase tracking-widest text-slate-500">Problem</dt>
-            <dd className="mt-1 text-2xl text-slate-600">Programs record thousands of calls. Supervisors hear a&nbsp;handful.</dd>
+            <dd className="mt-1 text-2xl text-slate-600">Programs record thousands of calls. Supervisors can only review a&nbsp;few.</dd>
           </div>
           <div>
             <dt className="text-sm font-medium uppercase tracking-widest text-teal-700">Solution</dt>

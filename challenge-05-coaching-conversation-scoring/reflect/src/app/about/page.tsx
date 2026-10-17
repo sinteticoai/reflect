@@ -4,7 +4,7 @@ import { Proof } from "@/components/Proof";
 export const metadata = { title: "About | Reflect" };
 
 const BLOCKS = [
-  ["Problem", "Coaching programs record thousands of calls. Supervisors review a handful, and safety cues go unheard."],
+  ["Problem", "Coaching programs record thousands of calls. Supervisors can only review a few, and safety cues go unheard."],
   ["Solution", "tags every line, scores the coach, and flags what needs a person today. Live or recorded, English or Spanish."],
 ];
 
