@@ -18,13 +18,6 @@ export interface DemoCall {
 
 type Mode = "demo" | "paste" | "live";
 
-const SAMPLE = `Coach: Hi Maria, it's Ana from the coaching program. Is now still a good time?
-Participant: Yes, I was waiting for your call.
-Coach: Last time you set a goal to walk after dinner three times. How did that go?
-Participant: Only once. I've been so tired since the last chemo, and honestly I had a fever last night.
-Coach: You really need to walk more, the research is very clear on that.
-Participant: I know, I know. I just don't feel like myself.`;
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 function getRecognition(): any {
   if (typeof window === "undefined") return null;
@@ -38,7 +31,7 @@ export function Analyzer({ demos }: { demos: DemoCall[] }) {
   const [lines, setLines] = useState<Line[]>(demos[0]?.lines ?? []);
   const [analysis, setAnalysis] = useState<Analysis | null>(demos[0]?.analysis ?? null);
   const [labels, setLabels] = useState<unknown>(demos[0]?.labels ?? null);
-  const [paste, setPaste] = useState(SAMPLE);
+  const [paste, setPaste] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [highlight, setHighlight] = useState<number | null>(null);
@@ -192,14 +185,15 @@ export function Analyzer({ demos }: { demos: DemoCall[] }) {
         if (listening) stopLive();
         setMode(m);
         if (m === "demo" && demoId) pickDemo(demoId);
-        // A live call starts on a blank screen, not the last demo's transcript.
-        if (m === "live") {
+        // Live and paste start on a blank screen, not the last demo's transcript.
+        if (m === "live" || m === "paste") {
           setLines([]);
           setAnalysis(null);
           setLabels(null);
           setError(null);
           setInterim("");
         }
+        if (m === "paste") setPaste("");
       }}
       className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm ${
         mode === m ? "bg-teal-700 text-white" : "text-slate-700 hover:bg-slate-100"
@@ -254,7 +248,7 @@ export function Analyzer({ demos }: { demos: DemoCall[] }) {
                 onChange={(e) => setPaste(e.target.value)}
                 rows={7}
                 className="w-full rounded-md border border-slate-300 p-3 font-mono text-sm"
-                placeholder="Coach: ...&#10;Participant: ..."
+                placeholder={"Paste your transcript here, for example:\nCoach: How did your walks go this week?\nParticipant: Better than last week."}
               />
               <div className="flex items-center justify-between">
                 <span className="text-xs text-slate-500">
