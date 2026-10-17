@@ -30,7 +30,7 @@ export default function Pitch() {
       </Slide>
 
       <Slide>
-        <h2 className="text-5xl font-semibold tracking-tight text-slate-900 sm:text-6xl">Reflect listens and&nbsp;tells you:</h2>
+        <h2 className="text-5xl font-semibold tracking-tight text-slate-900 sm:text-6xl"><span className="text-teal-700">Reflect</span> listens and&nbsp;tells you:</h2>
         <ul className="mt-10 space-y-5 text-3xl text-slate-700">
           <li><span className="font-semibold text-teal-700">Tag</span> every line, like an MI&nbsp;expert</li>
           <li><span className="font-semibold text-teal-700">Score</span> the coach, like a&nbsp;supervisor</li>

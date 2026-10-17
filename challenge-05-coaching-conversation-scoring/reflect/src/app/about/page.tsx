@@ -2,19 +2,22 @@ export const metadata = { title: "About | Reflect" };
 
 const BLOCKS = [
   ["Problem", "Coaching programs record thousands of calls. Supervisors review a handful, and safety cues go unheard."],
-  ["Solution", "Reflect tags every line, scores the coach, and flags what needs a person today. Live or recorded, English or Spanish."],
+  ["Solution", "tags every line, scores the coach, and flags what needs a person today. Live or recorded, English or Spanish."],
   ["Proof", "Matches MI experts 83% of the time (experts agree with each other 84%). Caught 37 of 37 urgent safety issues."],
 ];
 
 export default function About() {
   return (
     <article className="max-w-2xl py-10">
-      <h1 className="text-4xl font-semibold tracking-tight text-slate-900">About Reflect</h1>
+      <h1 className="text-4xl font-semibold tracking-tight text-slate-900">About <span className="text-teal-700">Reflect</span></h1>
       <dl className="mt-10 space-y-8">
         {BLOCKS.map(([k, v]) => (
           <div key={k}>
             <dt className="text-sm font-medium uppercase tracking-widest text-teal-700">{k}</dt>
-            <dd className="mt-2 text-xl leading-relaxed text-slate-700">{v}</dd>
+            <dd className="mt-2 text-xl leading-relaxed text-slate-700">
+              {k === "Solution" && <span className="font-semibold text-teal-700">Reflect </span>}
+              {v}
+            </dd>
           </div>
         ))}
       </dl>
