@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { AlertTriangle, Gauge, Tag } from "lucide-react";
-import { NextSlide } from "@/components/NextSlide";
 import { Proof } from "@/components/Proof";
 
 const TEAL = { bg: "bg-white border border-slate-200", fg: "text-teal-700" };
@@ -16,7 +15,7 @@ function Slide({ id, children }: { id: string; children: React.ReactNode }) {
   return (
     <section
       id={id}
-      className="relative flex min-h-[calc(100vh-8rem)] snap-start flex-col justify-center border-b border-slate-200 py-12"
+      className="border-b border-slate-200 py-16 last:border-b-0"
     >
       {children}
     </section>
@@ -26,8 +25,7 @@ function Slide({ id, children }: { id: string; children: React.ReactNode }) {
 
 export default function Pitch() {
   return (
-    <div id="pitch-scroll" className="h-[calc(100vh-5rem)] snap-y snap-mandatory overflow-y-auto scroll-smooth">
-      <NextSlide containerId="pitch-scroll" />
+    <div>
       <Slide id="s1">
         <p className="text-sm font-medium uppercase tracking-widest text-teal-700">Sylvester Challenge 5</p>
         <h1 className="mt-4 max-w-4xl text-5xl font-semibold tracking-tight text-slate-900 sm:text-7xl">
