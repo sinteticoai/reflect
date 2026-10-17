@@ -335,7 +335,7 @@ export function Analyzer({ demos }: { demos: DemoCall[] }) {
           <div className="border-b border-slate-100 bg-white px-4 py-2.5">
             <h2 className="text-sm font-semibold text-slate-800">Supervisor review</h2>
           </div>
-          <Scorecard analysis={analysis} onJump={jump} />
+          <Scorecard analysis={analysis} lines={lines} onJump={jump} />
         </section>
       </div>
     </div>

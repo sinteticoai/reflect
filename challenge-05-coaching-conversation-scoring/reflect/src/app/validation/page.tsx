@@ -115,6 +115,7 @@ export default function ValidationPage() {
   const data = validationData as unknown as Obj;
   const pending = data.status === "pending";
   const headline = Array.isArray(data.headline) ? (data.headline.filter(isObj) as Obj[]) : [];
+  const claims = Array.isArray(data.headline) ? (data.headline.filter((h) => typeof h === "string") as string[]) : [];
   const sections = Array.isArray(data.sections) ? (data.sections.filter(isObj) as Obj[]) : null;
   const other = Object.entries(data).filter(
     ([k]) => !["status", "headline", "sections", "title", "summary", "generated_at", "model"].includes(k),
@@ -149,6 +150,15 @@ export default function ValidationPage() {
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {headline.map((h, i) => (
                 <Headline key={i} item={h} />
+              ))}
+            </div>
+          )}
+          {claims.length > 0 && (
+            <div className="grid gap-3 sm:grid-cols-2">
+              {claims.map((c, i) => (
+                <div key={i} className="rounded-xl border border-teal-200 bg-teal-50/60 p-4 text-sm leading-relaxed text-slate-800">
+                  {c}
+                </div>
               ))}
             </div>
           )}

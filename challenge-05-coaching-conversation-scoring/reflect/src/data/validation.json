@@ -1,1 +1,391 @@
-{"status":"pending"}
+{
+ "status": "ok",
+ "generated_at": "2026-10-17T19:19:07.905Z",
+ "models": {
+  "line_tagging_and_scoring": "claude-haiku-5-5"
+ },
+ "annomi_benchmark": {
+  "description": "AnnoMI real counselling sessions. Line labels compared with the majority label of 10 MI experts.",
+  "n_sessions": 7,
+  "counsellor_move": {
+   "n": 216,
+   "accuracy_pct": 83.3,
+   "kappa": 0.774,
+   "top_errors": [
+    {
+     "error": "question -> other",
+     "n": 8
+    },
+    {
+     "error": "giving information or advice -> other",
+     "n": 7
+    },
+    {
+     "error": "giving information or advice -> reflection",
+     "n": 4
+    },
+    {
+     "error": "reflection -> other",
+     "n": 4
+    },
+    {
+     "error": "other -> reflection",
+     "n": 3
+    },
+    {
+     "error": "other -> giving information or advice",
+     "n": 2
+    }
+   ]
+  },
+  "question_type": {
+   "n": 66,
+   "accuracy_pct": 69.7,
+   "kappa": 0.481
+  },
+  "reflection_type": {
+   "n": 45,
+   "accuracy_pct": 71.1,
+   "kappa": 0.433
+  },
+  "client_talk": {
+   "n": 212,
+   "accuracy_pct": 77.8,
+   "kappa": 0.607,
+   "top_errors": [
+    {
+     "error": "neutral -> change",
+     "n": 23
+    },
+    {
+     "error": "neutral -> sustain",
+     "n": 9
+    },
+    {
+     "error": "sustain -> change",
+     "n": 7
+    },
+    {
+     "error": "change -> neutral",
+     "n": 6
+    },
+    {
+     "error": "sustain -> neutral",
+     "n": 2
+    }
+   ]
+  },
+  "human_expert_agreement_pct": 83.9,
+  "human_expert_agreement_note": "Mean share of the 10 experts who chose the majority label on these lines (README states about 84%).",
+  "session_quality": {
+   "description": "Can Reflect tell good MI practice from poor MI practice? All low-quality sessions vs an equal random sample of high-quality sessions (first 160 lines each).",
+   "n_high": 23,
+   "n_low": 23,
+   "auc_overall_score": 0.933,
+   "mean_overall_high": 3,
+   "mean_overall_low": 1.8,
+   "auc_reflection_to_question": 0.924,
+   "auc_low_persuade_rate": 0.94,
+   "mean_reflection_to_question_high": 2,
+   "mean_reflection_to_question_low": 0.2
+  }
+ },
+ "synthetic": {
+  "description": "Synthetic Sylvester coaching calls (English and Spanish) with supervisor line labels, plus every call that contains a must-act-today line.",
+  "n_calls": 79,
+  "n_english": 41,
+  "n_spanish": 38,
+  "coach_move": {
+   "n": 2307,
+   "accuracy_pct": 83.2,
+   "kappa": 0.808,
+   "accuracy_english_pct": 84.9,
+   "accuracy_spanish_pct": 81.3,
+   "top_errors": [
+    {
+     "error": "simple reflection -> complex reflection",
+     "n": 70
+    },
+    {
+     "error": "complex reflection -> affirm",
+     "n": 48
+    },
+    {
+     "error": "other -> affirm",
+     "n": 34
+    },
+    {
+     "error": "other -> closed question",
+     "n": 34
+    },
+    {
+     "error": "complex reflection -> simple reflection",
+     "n": 27
+    },
+    {
+     "error": "seek collaboration -> other",
+     "n": 25
+    }
+   ]
+  },
+  "participant_talk": {
+   "n": 1989,
+   "accuracy_pct": 88.6,
+   "kappa": 0.815,
+   "top_errors": [
+    {
+     "error": "neutral -> change",
+     "n": 120
+    },
+    {
+     "error": "neutral -> sustain",
+     "n": 31
+    },
+    {
+     "error": "sustain -> change",
+     "n": 29
+    },
+    {
+     "error": "sustain -> neutral",
+     "n": 26
+    },
+    {
+     "error": "change -> neutral",
+     "n": 13
+    },
+    {
+     "error": "change -> sustain",
+     "n": 7
+    }
+   ]
+  },
+  "needs_human_lines": {
+   "truth_yes": 20,
+   "caught": 19,
+   "missed": 1,
+   "false_alarms": 0,
+   "recall_pct": 95,
+   "precision_pct": 100,
+   "missed_examples": [
+    {
+     "id": "CALL03375",
+     "line": "47",
+     "text": "Oh, before you go, i've had diarrhea for three days and I can't keep much down."
+    }
+   ]
+  },
+  "needs_human_calls": {
+   "calls_with_issue": 20,
+   "caught": 20,
+   "missed": 0,
+   "false_alarm_calls": 0,
+   "clean_calls_correct": 59,
+   "recall_pct": 100,
+   "precision_pct": 100
+  }
+ },
+ "supervisor_agreement": {
+  "description": "Reflect's call scores vs two human supervisors who rated the same calls. A vs B shows how much humans agree with each other. 'calibrated' maps Reflect's line tags and LLM scores to the supervisors' scale with ridge regression, 10-fold cross-validated so no call is scored by a model that saw it.",
+  "n_calls": 200,
+  "method": "Ridge regression from Reflect's own line tags and LLM scores to the mean of the two supervisors, 10-fold cross-validated (every call scored by a model that never saw it), rounded to 1-5.",
+  "feature_names": [
+   "llm_overall",
+   "llm_empathy",
+   "llm_partnership",
+   "checklist_count",
+   "open_question_share",
+   "reflection_to_question",
+   "persuade_per_10_coach_lines",
+   "complex_reflection_per_10",
+   "mi_adherent_per_10",
+   "change_talk_share"
+  ],
+  "overall_1_to_5": {
+   "raw_llm": {
+    "vs_A": {
+     "n": 200,
+     "exact_pct": 29,
+     "within1_pct": 73.5,
+     "mae": 1.02,
+     "pearson_r": 0.465
+    },
+    "vs_B": {
+     "n": 200,
+     "exact_pct": 29.5,
+     "within1_pct": 82.5,
+     "mae": 0.905,
+     "pearson_r": 0.398
+    }
+   },
+   "calibrated": {
+    "vs_A": {
+     "n": 200,
+     "exact_pct": 57,
+     "within1_pct": 97,
+     "mae": 0.46,
+     "pearson_r": 0.743
+    },
+    "vs_B": {
+     "n": 200,
+     "exact_pct": 44.5,
+     "within1_pct": 95,
+     "mae": 0.605,
+     "pearson_r": 0.645
+    },
+    "vs_mean_AB_pearson_r": 0.757
+   },
+   "A_vs_B": {
+    "n": 200,
+    "exact_pct": 41,
+    "within1_pct": 94,
+    "mae": 0.655,
+    "pearson_r": 0.683
+   }
+  },
+  "empathy_1_to_5": {
+   "raw_llm": {
+    "vs_A": {
+     "n": 200,
+     "exact_pct": 32,
+     "within1_pct": 79.5,
+     "mae": 0.9,
+     "pearson_r": 0.329
+    },
+    "vs_B": {
+     "n": 200,
+     "exact_pct": 33.5,
+     "within1_pct": 81.5,
+     "mae": 0.86,
+     "pearson_r": 0.277
+    }
+   },
+   "calibrated": {
+    "vs_A": {
+     "n": 200,
+     "exact_pct": 45.5,
+     "within1_pct": 92,
+     "mae": 0.625,
+     "pearson_r": 0.659
+    },
+    "vs_B": {
+     "n": 200,
+     "exact_pct": 36,
+     "within1_pct": 93.5,
+     "mae": 0.705,
+     "pearson_r": 0.615
+    },
+    "vs_mean_AB_pearson_r": 0.68
+   },
+   "A_vs_B": {
+    "n": 200,
+    "exact_pct": 48.5,
+    "within1_pct": 93.5,
+    "mae": 0.58,
+    "pearson_r": 0.756
+   }
+  },
+  "partnership_1_to_5": {
+   "raw_llm": {
+    "vs_A": {
+     "n": 200,
+     "exact_pct": 17,
+     "within1_pct": 51.5,
+     "mae": 1.41,
+     "pearson_r": 0.492
+    },
+    "vs_B": {
+     "n": 200,
+     "exact_pct": 21.5,
+     "within1_pct": 61.5,
+     "mae": 1.21,
+     "pearson_r": 0.489
+    }
+   },
+   "calibrated": {
+    "vs_A": {
+     "n": 200,
+     "exact_pct": 51.5,
+     "within1_pct": 94,
+     "mae": 0.555,
+     "pearson_r": 0.747
+    },
+    "vs_B": {
+     "n": 200,
+     "exact_pct": 40,
+     "within1_pct": 92.5,
+     "mae": 0.675,
+     "pearson_r": 0.7
+    },
+    "vs_mean_AB_pearson_r": 0.762
+   },
+   "A_vs_B": {
+    "n": 200,
+    "exact_pct": 46,
+    "within1_pct": 95,
+    "mae": 0.59,
+    "pearson_r": 0.802
+   }
+  },
+  "checklist": {
+   "set_agenda": {
+    "reflect_vs_A_pct": 97,
+    "reflect_vs_B_pct": 92.5,
+    "A_vs_B_pct": 92.5
+   },
+   "checked_feelings": {
+    "reflect_vs_A_pct": 47.8,
+    "reflect_vs_B_pct": 44.8,
+    "A_vs_B_pct": 88.1
+   },
+   "reviewed_last_goal": {
+    "reflect_vs_A_pct": 79.1,
+    "reflect_vs_B_pct": 91,
+    "A_vs_B_pct": 85.1
+   },
+   "set_new_goal": {
+    "reflect_vs_A_pct": 88.1,
+    "reflect_vs_B_pct": 80.6,
+    "A_vs_B_pct": 83.6
+   },
+   "planned_for_barriers": {
+    "reflect_vs_A_pct": 77.6,
+    "reflect_vs_B_pct": 80.6,
+    "A_vs_B_pct": 85.1
+   },
+   "summarized": {
+    "reflect_vs_A_pct": 89.6,
+    "reflect_vs_B_pct": 95.5,
+    "A_vs_B_pct": 88.1
+   },
+   "set_next_contact": {
+    "reflect_vs_A_pct": 79.1,
+    "reflect_vs_B_pct": 83.6,
+    "A_vs_B_pct": 89.6
+   }
+  },
+  "checklist_mean": {
+   "reflect_vs_A_pct": 79.8,
+   "reflect_vs_B_pct": 81.2,
+   "A_vs_B_pct": 87.4
+  },
+  "checklist_n_calls": 67
+ },
+ "text_messages": {
+  "description": "Participant text messages (independent messages, batched 40 per request). All 'needs a person today' texts plus 120 random ordinary texts.",
+  "n": 137,
+  "truth_yes": 17,
+  "caught": 17,
+  "missed": 0,
+  "false_alarms": 0,
+  "recall_pct": 100,
+  "precision_pct": 100,
+  "false_alarm_examples": [],
+  "missed_examples": []
+ },
+ "headline": [
+  "Labels coach moves on real expert-coded MI sessions at 83.3% agreement with the 10-expert majority (kappa 0.774, n=216), on par with the 83.9% the experts reach with each other.",
+  "Caught 20 of 20 calls and 17 of 17 texts where a person must act today, with zero false alarms (19/20 exact lines).",
+  "Calibrated call scores track supervisors about as closely as supervisors track each other: overall score vs Supervisor A r=0.743 (57% exact, 97% within 1), vs Supervisor B r=0.645; Supervisor A vs B r=0.683 (41% exact). n=200 calls, cross-validated.",
+  "Separates good from poor real MI sessions (AUC 0.933, n=23+23) and works in Spanish (81.3% vs 84.9% English coach-move accuracy). Weak spot: simple vs complex reflection (71.1%, kappa 0.433) and open vs closed questions (69.7%)."
+ ]
+}

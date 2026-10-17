@@ -1,6 +1,7 @@
 "use client";
 import { AlertTriangle, CheckCircle2, Circle, Flag as FlagIcon } from "lucide-react";
-import type { Analysis } from "@/lib/mi";
+import type { Analysis, Line } from "@/lib/mi";
+import { calibratedScores } from "@/data/calibrate";
 
 const CHECK_LABELS: Record<string, string> = {
   set_agenda: "Set the agenda",
@@ -12,7 +13,7 @@ const CHECK_LABELS: Record<string, string> = {
   set_next_contact: "Set next contact",
 };
 
-function Stars({ label, value }: { label: string; value?: number }) {
+function Stars({ label, value, raw }: { label: string; value?: number; raw?: number }) {
   return (
     <div className="rounded-lg border border-slate-200 bg-white p-3">
       <div className="text-xs text-slate-500">{label}</div>
@@ -25,6 +26,7 @@ function Stars({ label, value }: { label: string; value?: number }) {
           <span key={i} className={`h-1.5 flex-1 rounded-full ${value && i <= value ? "bg-teal-600" : "bg-slate-200"}`} />
         ))}
       </div>
+      {raw !== undefined && <div className="mt-1.5 text-[11px] text-slate-400">model raw {raw}</div>}
     </div>
   );
 }
@@ -69,13 +71,19 @@ function Meter({
   );
 }
 
-export function Scorecard({ analysis, onJump }: { analysis: Analysis | null; onJump: (n: number) => void }) {
+export function Scorecard({ analysis, lines, onJump }: { analysis: Analysis | null; lines: Line[]; onJump: (n: number) => void }) {
   if (!analysis) return <p className="p-6 text-sm text-slate-500">The supervisor review appears here.</p>;
   const { score, metrics, flags } = analysis;
   const sorted = [...(flags ?? [])].sort((a, b) =>
     a.severity === b.severity ? a.line_number - b.line_number : a.severity === "urgent" ? -1 : 1,
   );
   const ct = metrics.change_talk + metrics.sustain_talk;
+  let cal: ReturnType<typeof calibratedScores> | null = null;
+  try {
+    if (score?.checklist && lines.length) cal = calibratedScores(lines, analysis);
+  } catch {
+    cal = null;
+  }
   return (
     <div className="space-y-5 p-4">
       {sorted.some((f) => f.severity === "urgent") && (
@@ -95,10 +103,11 @@ export function Scorecard({ analysis, onJump }: { analysis: Analysis | null; onJ
       )}
 
       <div className="grid grid-cols-3 gap-2">
-        <Stars label="Overall" value={score?.overall_1_to_5} />
-        <Stars label="Empathy" value={score?.empathy_1_to_5} />
-        <Stars label="Partnership" value={score?.partnership_1_to_5} />
+        <Stars label="Overall" value={cal?.overall_1_to_5 ?? score?.overall_1_to_5} raw={cal ? score?.overall_1_to_5 : undefined} />
+        <Stars label="Empathy" value={cal?.empathy_1_to_5 ?? score?.empathy_1_to_5} raw={cal ? score?.empathy_1_to_5 : undefined} />
+        <Stars label="Partnership" value={cal?.partnership_1_to_5 ?? score?.partnership_1_to_5} raw={cal ? score?.partnership_1_to_5 : undefined} />
       </div>
+      {cal && <p className="-mt-3 text-[11px] text-slate-400">Scores calibrated to supervisor ratings (200 rated calls, cross-validated).</p>}
 
       {score?.summary && <p className="text-sm leading-relaxed text-slate-700">{score.summary}</p>}
 

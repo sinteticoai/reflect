@@ -57,7 +57,8 @@ export async function POST(req: Request) {
 
   const model = body.model === "smart" ? MODEL_SMART : MODEL_FAST;
   try {
-    const analysis = await analyzeCall(lines, { model });
+    // Haiku occasionally emits malformed tool JSON; one retry clears it.
+    const analysis = await analyzeCall(lines, { model }).catch(() => analyzeCall(lines, { model }));
     return NextResponse.json({ lines, analysis });
   } catch (e) {
     console.error("analyze failed", e);
