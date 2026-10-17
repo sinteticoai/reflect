@@ -1,5 +1,5 @@
 const STATS = [
-  ["83%", "agreement with MI experts on real sessions", "Experts agree with each other 84%"],
+  ["83%", "agreement with motivational interviewing (MI) experts on real sessions", "Experts agree with each other 84%"],
   ["37 / 37", "urgent safety issues caught", "Zero false alarms"],
   ["r 0.74", "match to supervisor scores", "Supervisors match each other at 0.68"],
 ];
