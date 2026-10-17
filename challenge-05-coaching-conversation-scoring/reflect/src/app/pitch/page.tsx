@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Proof } from "@/components/Proof";
 
 export const metadata = { title: "Reflect | Pitch" };
 
@@ -10,11 +11,6 @@ function Slide({ children }: { children: React.ReactNode }) {
   );
 }
 
-const PROOF = [
-  ["83%", "agreement with MI experts on real sessions", "Experts agree with each other 84%"],
-  ["37 / 37", "urgent safety issues caught", "Zero false alarms"],
-  ["r 0.74", "match to supervisor scores", "Supervisors match each other at 0.68"],
-];
 
 export default function Pitch() {
   return (
@@ -27,6 +23,13 @@ export default function Pitch() {
         <p className="mt-6 max-w-2xl text-2xl text-slate-600">
           Programs record thousands of calls. Supervisors hear a&nbsp;handful.
         </p>
+        <div className="mt-12">
+          <Proof />
+        </div>
+        <p className="mt-6 text-sm text-slate-500">
+          AnnoMI 10-expert lines, Sylvester synthetic program, 200 supervisor-rated calls.{" "}
+          <Link href="/validation" className="underline">Details</Link>
+        </p>
       </Slide>
 
       <Slide>
@@ -37,23 +40,6 @@ export default function Pitch() {
           <li><span className="font-semibold text-rose-600">Flag</span> what needs a person&nbsp;today</li>
         </ul>
         <p className="mt-10 text-xl text-slate-500">Live or recorded. Spoken or texted. English or&nbsp;Spanish.</p>
-      </Slide>
-
-      <Slide>
-        <h2 className="text-5xl font-semibold tracking-tight text-slate-900 sm:text-6xl">As good as the&nbsp;experts.</h2>
-        <div className="mt-10 grid gap-6 sm:grid-cols-3">
-          {PROOF.map(([n, what, ref]) => (
-            <div key={n}>
-              <p className="text-6xl font-semibold tracking-tight text-teal-700">{n}</p>
-              <p className="mt-3 text-xl text-slate-800">{what}</p>
-              <p className="mt-1 text-base text-slate-500">{ref}</p>
-            </div>
-          ))}
-        </div>
-        <p className="mt-10 text-base text-slate-500">
-          AnnoMI 10-expert lines, Sylvester synthetic program, 200 supervisor-rated calls.{" "}
-          <Link href="/validation" className="underline">Details</Link>
-        </p>
       </Slide>
 
       <Slide>
