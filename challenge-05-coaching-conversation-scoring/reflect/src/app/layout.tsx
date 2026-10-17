@@ -24,10 +24,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               </span>
             </Link>
             <nav className="flex gap-1 text-sm">
-              <Link href="/" className="rounded-md px-3 py-1.5 text-slate-700 hover:bg-slate-100">Analyze</Link>
+              <Link href="/" className="rounded-md px-3 py-1.5 text-slate-700 hover:bg-slate-100">Demo</Link>
               <Link href="/validation" className="rounded-md px-3 py-1.5 text-slate-700 hover:bg-slate-100">Validation</Link>
               <Link href="/about" className="rounded-md px-3 py-1.5 text-slate-700 hover:bg-slate-100">About</Link>
-              <Link href="/pitch" className="rounded-md px-3 py-1.5 text-slate-700 hover:bg-slate-100">Pitch</Link>
             </nav>
           </div>
         </header>
