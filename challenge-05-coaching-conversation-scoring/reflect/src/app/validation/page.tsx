@@ -1,172 +1,152 @@
-import validationData from "@/data/validation.json";
-import { Loader2 } from "lucide-react";
+import v from "@/data/validation.json";
 
 export const metadata = { title: "Validation | Reflect" };
 
-type Json = string | number | boolean | null | Json[] | { [k: string]: Json };
-type Obj = { [k: string]: Json };
+const a = v.annomi_benchmark;
+const s = v.synthetic;
+const sup = v.supervisor_agreement;
+const t = v.text_messages;
 
-const isObj = (v: Json | undefined): v is Obj => !!v && typeof v === "object" && !Array.isArray(v);
-
-function humanize(k: string) {
-  return k.replace(/_/g, " ").replace(/\b(pct)\b/i, "%").replace(/^\w/, (c) => c.toUpperCase());
-}
-
-function fmt(v: Json): string {
-  if (v == null) return "-";
-  if (typeof v === "number") return Number.isInteger(v) ? v.toLocaleString() : (Math.round(v * 1000) / 1000).toString();
-  if (typeof v === "boolean") return v ? "yes" : "no";
-  if (typeof v === "string") return v;
-  return JSON.stringify(v);
-}
-
-function Headline({ item }: { item: Obj }) {
+function Section({
+  kicker,
+  stat,
+  claim,
+  sub,
+  children,
+}: {
+  kicker: string;
+  stat: string;
+  claim: string;
+  sub: string;
+  children: React.ReactNode;
+}) {
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-4">
-      <div className="text-sm text-slate-500">{fmt(item.label ?? "")}</div>
-      <div className="mt-1 text-3xl font-semibold text-teal-800">{fmt(item.value ?? null)}</div>
-      {item.reference != null && (
-        <div className="mt-1 text-xs text-slate-500">Human experts: {fmt(item.reference)}</div>
-      )}
-      {item.note != null && <p className="mt-2 text-xs text-slate-600">{fmt(item.note)}</p>}
-    </div>
-  );
-}
-
-function Table({ rows }: { rows: Obj[] }) {
-  const cols = Array.from(new Set(rows.flatMap((r) => Object.keys(r))));
-  return (
-    <div className="overflow-x-auto">
-      <table className="w-full text-left text-sm">
-        <thead>
-          <tr className="border-b border-slate-200 text-xs uppercase tracking-wide text-slate-500">
-            {cols.map((c) => (
-              <th key={c} className="px-3 py-2 font-medium">
-                {humanize(c)}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((r, i) => (
-            <tr key={i} className="border-b border-slate-100 last:border-0">
-              {cols.map((c) => (
-                <td key={c} className="px-3 py-2 text-slate-800">
-                  {fmt(r[c] ?? null)}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-function Value({ v }: { v: Json }) {
-  if (Array.isArray(v)) {
-    if (v.length && v.every(isObj)) return <Table rows={v as Obj[]} />;
-    return <p className="text-sm text-slate-700">{v.map(fmt).join(", ")}</p>;
-  }
-  if (isObj(v)) {
-    const entries = Object.entries(v);
-    const simple = entries.filter(([, x]) => !isObj(x) && !Array.isArray(x));
-    const nested = entries.filter(([, x]) => isObj(x) || Array.isArray(x));
-    return (
-      <div className="space-y-3">
-        {simple.length > 0 && (
-          <dl className="grid grid-cols-1 gap-x-6 gap-y-1 text-sm sm:grid-cols-2">
-            {simple.map(([k, x]) => (
-              <div key={k} className="flex justify-between gap-3 border-b border-slate-100 py-1">
-                <dt className="text-slate-500">{humanize(k)}</dt>
-                <dd className="text-right font-medium text-slate-800">{fmt(x)}</dd>
-              </div>
-            ))}
-          </dl>
-        )}
-        {nested.map(([k, x]) => (
-          <div key={k}>
-            <h4 className="mb-1 text-xs font-semibold uppercase tracking-wide text-slate-500">{humanize(k)}</h4>
-            <Value v={x} />
-          </div>
-        ))}
+    <section className="grid gap-8 border-b border-slate-200 py-10 lg:grid-cols-[1fr_1.4fr]">
+      <div className="border-l-4 border-teal-600 pl-4">
+        <p className="text-sm font-medium uppercase tracking-widest text-teal-700">{kicker}</p>
+        <p className="mt-3 text-6xl font-semibold tracking-tight text-teal-700">{stat}</p>
+        <p className="mt-3 text-xl font-medium text-slate-900">{claim}</p>
+        <p className="mt-1 text-sm text-slate-500">{sub}</p>
       </div>
-    );
-  }
-  return <p className="text-sm text-slate-700">{fmt(v)}</p>;
-}
-
-function Section({ title, body }: { title: string; body: Json }) {
-  const o = isObj(body) ? body : null;
-  const desc = o && typeof o.description === "string" ? o.description : null;
-  const rest: Json = o ? Object.fromEntries(Object.entries(o).filter(([k]) => k !== "description" && k !== "title")) : body;
-  return (
-    <section className="rounded-xl border border-slate-200 bg-white p-5">
-      <h2 className="text-lg font-semibold text-slate-900">{title}</h2>
-      {desc && <p className="mt-1 text-sm text-slate-600">{desc}</p>}
-      <div className="mt-4">
-        <Value v={rest} />
-      </div>
+      <div className="overflow-x-auto">{children}</div>
     </section>
   );
 }
 
-export default function ValidationPage() {
-  const data = validationData as unknown as Obj;
-  const pending = data.status === "pending";
-  const headline = Array.isArray(data.headline) ? (data.headline.filter(isObj) as Obj[]) : [];
-  const claims = Array.isArray(data.headline) ? (data.headline.filter((h) => typeof h === "string") as string[]) : [];
-  const sections = Array.isArray(data.sections) ? (data.sections.filter(isObj) as Obj[]) : null;
-  const other = Object.entries(data).filter(
-    ([k]) => !["status", "headline", "sections", "title", "summary", "generated_at", "model", "models"].includes(k),
-  );
-
+function Table({ head, rows }: { head: string[]; rows: (string | number)[][] }) {
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight text-slate-900">Does Reflect label like an expert?</h1>
-        <p className="mt-1 max-w-3xl text-sm text-slate-600">
-          We checked Reflect against expert motivational interviewing labels on real counselling sessions (AnnoMI),
-          against the labelled part of the Sylvester synthetic coaching program, and against two human supervisors.
-          On the 428 AnnoMI lines rated by ten experts, experts agree with each other about 84% of the time. That is
-          the bar.
-        </p>
-        {typeof data.summary === "string" && <p className="mt-2 max-w-3xl text-sm text-slate-800">{data.summary}</p>}
-        {(data.model != null || data.generated_at != null) && (
-          <p className="mt-1 text-xs text-slate-500">
-            {data.model != null && <>Model: {fmt(data.model)} </>}
-            {data.generated_at != null && <>Run: {fmt(data.generated_at)}</>}
-          </p>
-        )}
-      </div>
+    <table className="w-full text-left text-sm">
+      <thead>
+        <tr className="border-b border-slate-200 text-slate-500">
+          {head.map((h) => (
+            <th key={h} className="py-2 pr-4 font-medium">{h}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((r, i) => (
+          <tr key={i} className="border-b border-slate-100">
+            {r.map((c, j) => (
+              <td key={j} className={`py-2 pr-4 ${j === 0 ? "text-slate-800" : "tabular-nums text-slate-600"}`}>{c}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
 
-      {pending ? (
-        <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white p-6 text-slate-600">
-          <Loader2 className="animate-spin" size={18} /> Validation running. Results appear here when the run finishes.
-        </div>
-      ) : (
-        <>
-          {headline.length > 0 && (
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {headline.map((h, i) => (
-                <Headline key={i} item={h} />
-              ))}
-            </div>
-          )}
-          {claims.length > 0 && (
-            <div className="grid gap-3 sm:grid-cols-2">
-              {claims.map((c, i) => (
-                <div key={i} className="rounded-xl border border-teal-200 bg-teal-50/60 p-4 text-sm leading-relaxed text-slate-800">
-                  {c}
-                </div>
-              ))}
-            </div>
-          )}
-          {sections
-            ? sections.map((s, i) => <Section key={i} title={fmt(s.title ?? `Section ${i + 1}`)} body={s} />)
-            : other.map(([k, v]) => <Section key={k} title={humanize(k)} body={v} />)}
-        </>
-      )}
+const pct = (x: number) => `${x}%`;
+
+export default function Validation() {
+  const ov = sup.overall_1_to_5;
+  const em = sup.empathy_1_to_5;
+  const pa = sup.partnership_1_to_5;
+  return (
+    <div className="max-w-6xl">
+      <h1 className="text-4xl font-semibold tracking-tight text-slate-900">Validation</h1>
+      <p className="mt-3 max-w-2xl text-lg text-slate-600">
+        Every number below compares Reflect with human experts on held-out&nbsp;data.
+      </p>
+
+      <Section
+        kicker="Expert agreement"
+        stat={pct(a.counsellor_move.accuracy_pct)}
+        claim="matches the 10-expert majority on real MI sessions"
+        sub={`Experts agree with each other ${a.human_expert_agreement_pct}%. AnnoMI, ${a.counsellor_move.n} expert-coded lines.`}
+      >
+        <Table
+          head={["Label", "Accuracy", "Kappa", "n"]}
+          rows={[
+            ["Coach move", pct(a.counsellor_move.accuracy_pct), a.counsellor_move.kappa, a.counsellor_move.n],
+            ["Client change / sustain talk", pct(a.client_talk.accuracy_pct), a.client_talk.kappa, a.client_talk.n],
+            ["Open vs closed question", pct(a.question_type.accuracy_pct), a.question_type.kappa, a.question_type.n],
+            ["Simple vs complex reflection", pct(a.reflection_type.accuracy_pct), a.reflection_type.kappa, a.reflection_type.n],
+          ]}
+        />
+        <p className="mt-4 text-sm text-slate-600">
+          Tells good from poor MI sessions with AUC {a.session_quality.auc_overall_score} ({a.session_quality.n_high} good vs{" "}
+          {a.session_quality.n_low} poor). Reflection-to-question ratio: {a.session_quality.mean_reflection_to_question_high} vs{" "}
+          {a.session_quality.mean_reflection_to_question_low}.
+        </p>
+      </Section>
+
+      <Section
+        kicker="Safety"
+        stat={`${s.needs_human_calls.caught + t.caught} / ${s.needs_human_calls.calls_with_issue + t.truth_yes}`}
+        claim="urgent issues caught, zero false alarms"
+        sub="Fever during chemo, chest pain, falls, food insecurity, hopelessness."
+      >
+        <Table
+          head={["Channel", "Caught", "False alarms"]}
+          rows={[
+            ["Calls with a must-act line", `${s.needs_human_calls.caught} / ${s.needs_human_calls.calls_with_issue}`, `0 of ${s.needs_human_calls.clean_calls_correct} clean calls`],
+            ["Exact line within the call", `${s.needs_human_lines.caught} / ${s.needs_human_lines.truth_yes}`, s.needs_human_lines.false_alarms],
+            ["Text messages", `${t.caught} / ${t.truth_yes}`, `0 of ${t.n - t.truth_yes} ordinary texts`],
+          ]}
+        />
+        <p className="mt-4 text-sm text-slate-600">
+          One line-level miss: &ldquo;{s.needs_human_lines.missed_examples[0].text}&rdquo; The call itself was still&nbsp;flagged.
+        </p>
+      </Section>
+
+      <Section
+        kicker="Supervisor agreement"
+        stat={`r ${ov.calibrated.vs_A.pearson_r}`}
+        claim="match to supervisor call scores"
+        sub={`Supervisors match each other at r ${ov.A_vs_B.pearson_r}. ${sup.n_calls} rated calls, cross-validated.`}
+      >
+        <Table
+          head={["Score (1 to 5)", "Reflect vs A", "Reflect vs B", "A vs B", "Within 1 pt"]}
+          rows={[
+            ["Overall", ov.calibrated.vs_A.pearson_r, ov.calibrated.vs_B.pearson_r, ov.A_vs_B.pearson_r, pct(ov.calibrated.vs_A.within1_pct)],
+            ["Empathy", em.calibrated.vs_A.pearson_r, em.calibrated.vs_B.pearson_r, em.A_vs_B.pearson_r, pct(em.calibrated.vs_A.within1_pct)],
+            ["Partnership", pa.calibrated.vs_A.pearson_r, pa.calibrated.vs_B.pearson_r, pa.A_vs_B.pearson_r, pct(pa.calibrated.vs_A.within1_pct)],
+          ]}
+        />
+        <p className="mt-4 text-sm text-slate-600">Pearson r. Within 1 pt is Reflect vs Supervisor&nbsp;A.</p>
+      </Section>
+
+      <Section
+        kicker="English and Spanish"
+        stat={pct(s.coach_move.accuracy_pct)}
+        claim="coach-move accuracy on Sylvester coaching calls"
+        sub={`${s.n_calls} calls, ${s.coach_move.n} coach lines, kappa ${s.coach_move.kappa}.`}
+      >
+        <Table
+          head={["Label", "Accuracy", "n"]}
+          rows={[
+            ["Coach move, English", pct(s.coach_move.accuracy_english_pct), `${s.n_english} calls`],
+            ["Coach move, Spanish", pct(s.coach_move.accuracy_spanish_pct), `${s.n_spanish} calls`],
+            ["Participant change / sustain talk", pct(s.participant_talk.accuracy_pct), `${s.participant_talk.n} lines`],
+          ]}
+        />
+      </Section>
+
+      <p className="py-8 text-sm text-slate-500">
+        Known limits: simple vs complex reflections ({pct(a.reflection_type.accuracy_pct)}) and the &ldquo;checked feelings&rdquo;
+        checklist item ({pct(sup.checklist.checked_feelings.reflect_vs_A_pct)} vs Supervisor A) need more&nbsp;work.
+      </p>
     </div>
   );
 }
