@@ -1,7 +1,7 @@
 # Submission (eMerge AI Hackathon 2026, Healthcare track, Challenge 5)
 
 Track: Healthcare
-Project Name: Reflect: an AI supervisor for every health-coaching call
+Project Name: Reflect
 Demo URL: https://reflect-seven-theta.vercel.app
 GitHub Repository: https://github.com/sinteticoai/reflect
 Pitch Deck URL: https://reflect-seven-theta.vercel.app/pitch
@@ -20,8 +20,8 @@ Feed it a call, live from the microphone, a pasted transcript, or a text thread,
 Validated, not just demoed:
 - Real AnnoMI sessions, 10-expert lines: 83.3% agreement with the expert majority on coach moves (kappa 0.77, n=216), on par with the 83.9% the experts reach with each other.
 - Safety: caught 20 of 20 calls and 17 of 17 texts where a person must act today, with zero false alarms.
-- Supervisor scores: calibrated overall score vs Supervisor A r=0.74 (97% within one point), higher than Supervisor A vs Supervisor B (r=0.68). n=200 calls, cross-validated.
+- Supervisor scores: calibrated overall score vs Supervisor A r=0.74 (97% within one point), as consistent as a second supervisor (Supervisor A vs B r=0.68). n=200 calls, cross-validated.
 - Separates good from poor real MI sessions (AUC 0.93) and works in Spanish (81% vs 85% English coach-move accuracy).
 - Honest weak spot: simple vs complex reflections (71%) and open vs closed questions (70%).
 
-Data: AnnoMI (Wu et al. 2022), UIC health coaching text corpus (Gupta et al., SIGDIAL 2020), Sylvester Crane Lab synthetic coaching program. Built by Sintetico with Claude.
+Data: AnnoMI (Wu et al. 2022), UIC health coaching text corpus (Gupta et al., SIGDIAL 2020), Sylvester Crane Lab synthetic coaching program. Built by Christian G. Balbontin.
